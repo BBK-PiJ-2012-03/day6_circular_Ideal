@@ -1,34 +1,33 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 public class PatientListTest {
-	private PatientImpl myPatient;
-	private PatientImpl myPatient2;
-	private PatientImpl myPatient3;
+	private PatientImpl john;
+	private PatientImpl mary;
+	private PatientImpl tom;
 	private PatientListImpl patientListStart;	
-@Before
+	@Before
 	public void buildUp() {
-	// A file is created here to be used in every test.
-	myPatient = new PatientImpl("John", 35 , "Cancer");
-	myPatient2 = new PatientImpl("Mary", 22 , "Fever");
-	myPatient3 = new PatientImpl("Tom", 80 , "HeadAche");
-	patientListStart = new PatientListImpl();
+		// A file is created here to be used in every test.
+		john = new PatientImpl("John", 35 , "Cancer");
+		mary = new PatientImpl("Mary", 22 , "Fever");
+		tom = new PatientImpl("Tom", 80 , "HeadAche");
+		patientListStart = new PatientListImpl();
 	}
-@After
+	@After
 	public void cleanUp() {
-	// The file is deleted here, after each test ends
-	myPatient = null;
-	myPatient2 = null;
-	myPatient3 = null;
+		// The file is deleted here, after each test ends
+		john = null;
+		mary = null;
+		tom = null;
 	}
 	
-@Test
+	@Test
 	public void testList() {
-		patientListStart = myPatient;
+		patientListStart.addPatient(john);
+		patientListStart.addPatient(mary);
+		patientListStart.addPatient(tom);
 		
-		patientListStart.addPatient(myPatient2);
-		patientListStart.addPatient(myPatient3);
-		
-		assertEquals("Tom", patientListStart.getNext().getNext().getName());
+		assertEquals("John", john.getNext().getNext().getNext().getName());
 	}
 
 }

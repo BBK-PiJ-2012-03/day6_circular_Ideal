@@ -11,4 +11,5 @@ public interface PatientList {
 	
 //Prints the list from the beggining to the end
 
-	//void traverseForward(); 	
+	void traverseForward(); 	
+}	

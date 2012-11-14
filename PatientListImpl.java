@@ -1,37 +1,49 @@
 public class PatientListImpl implements PatientList {
 	private Patient head = null;
-	private Patient tail = null;
 	
-	public void addPatient(Patient newPatient) {
-	if (head == null) {
-		head = newPatient;
-		tail = newPatient;
-	}	
-	if (head.getNext() == null || head.getNext() == head) {
-		head.setNext(newPatient);
-		tail = newPatient;
-		tail.setNext(head);
-	}
-	else {
-		head.getNext().addPatient(newPatient)
-	}
-	public boolean deletePatient(Patient newPatient) {
-	  if (this.getNext() == patientListStart) {
-	  //patient to remove was not found
-	  return false;
-	} else if (this.getNext().getName().equals(newPatient.getName())) {
-	  //We found it! It is the next one!
-	  // Now link this patient to the one after the next
-	  this.setNext() = getNext().getNext();
-	  return true;
-	} else {
-	  return this.getNext().deletePatient(newPatient);
-	  }
-	}
-	
-	public void traverseForward(Patient myPatient) {
-		do { System.out.println(myPatient.getName() + ", " + myPatient.getAge() + ", " + myPatient.getIllness());
-			myPatient = myPatient.getNext(); }
-			 while (myPatient != patientListStart); 
+	public void addPatient(Patient newPatient) {	
+		if (head == null) {
+			head = newPatient;
+			return;
+		}	
+		Patient aux = head;
+		while (aux.getNext() != null && aux.getNext() != head) {
+		aux = aux.getNext();
 		}
+		aux.setNext(newPatient);
+		newPatient.setNext(head);
+	}
+	
+	public boolean deletePatient(Patient newPatient) {
+		if (newPatient == head) {
+			head = null;
+			return true;
+		}
+		Patient aux = head.getNext();
+			
+		while (!aux.getName().equals(newPatient.getName()) && aux.getNext() != head) {
+				aux = aux.getNext();
+		}		
+		
+		if (aux.getNext() == head) {
+			//patient to remove was not found
+			return false;
+		}	
+		else {
+			
+			aux.setNext(aux.getNext().getNext());
+			return true;
+		}		
+	}	
+		
+	
+	public void traverseForward() {
+		Patient current = head;
+		System.out.println(head.getName() + ", " + head.getAge() + ", " + head.getIllness());
+		current = head.getNext();
+	  while (current != null && current != head) {
+		System.out.println(current.getName() + ", " + current.getAge() + ", " + current.getIllness());
+		current = current.getNext();
+	  }
+	}  
 }	
